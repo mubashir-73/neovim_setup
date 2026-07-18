@@ -64,16 +64,16 @@ Learned:
 
 ## Editor Features
 
-- [ ] LspAttach autocmd
-- [ ] Buffer-local keymaps
-- [ ] Rename
-- [ ] Code Actions
-- [ ] Hover
-- [ ] References
+- [x] LspAttach autocmd
+- [x] Buffer-local keymaps
+- [x] Rename
+- [x] Code Actions
+- [x] Hover
+- [x] References
 - [ ] Signature Help
-- [ ] Definitions
-- [ ] Type Definitions
-- [ ] Implementations
+- [x] Definitions
+- [x] Type Definitions
+- [x] Implementations
 
 ## Diagnostics
 
@@ -215,3 +215,65 @@ Performance
 - [x] Client lifecycle
 - [x] Root detection
 - [x] Native LSP architecture
+
+Core
+────
+✓ lazy.nvim
+✓ blink.cmp
+✓ Mason
+✓ Native LSP
+✓ Treesitter
+
+Navigation
+──────────
+✓ Telescope
+✓ Oil.nvim
+✓ Harpoon
+
+Editing
+───────
+✓ mini.pairs
+✓ mini.surround
+✓ mini.comment
+
+Formatting
+──────────
+✓ Conform
+
+Linting
+───────
+✓ nvim-lint
+
+Git
+───
+✓ Gitsigns
+✓ Diffview
+
+Database
+────────
+✓ vim-dadbod
+
+REST
+────
+✓ rest.nvim
+
+Testing
+───────
+✓ neotest
+
+Debugging
+─────────
+✓ nvim-dap
+
+Status
+──────
+✓ Lualine
+
+AI
+──
+✓ CodeCompanion.nvim
+✓ OpenRouter
+
+Diagnostics
+───────────
+✓ Trouble.nvim

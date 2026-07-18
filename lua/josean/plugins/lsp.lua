@@ -13,8 +13,20 @@ return {
       if server == "lua_ls" then
         config.settings = {
           Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+
             diagnostics = {
-              globals = { "vim" },
+              globals = { "vim", "diagnostics_dict", "context" },
+            },
+
+            workspace = {
+              checkThirdParty = false,
+            },
+
+            telemetry = {
+              enable = false,
             },
           },
         }

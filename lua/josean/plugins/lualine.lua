@@ -1,72 +1,98 @@
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+
+  event = "VeryLazy",
+
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+
   config = function()
     local lualine = require("lualine")
-    local lazy_status = require("lazy.status") -- to configure lazy pending updates count
+    local lazy_status = require("lazy.status")
 
-    local colors = {
-      black = "#282828",
-      white = "#ebdbb2",
-      red = "#fb4934",
-      green = "#b8bb26",
-      blue = "#83a598",
-      yellow = "#fe8019",
-      gray = "#a89984",
-      darkgray = "#3c3836",
-      lightgray = "#504945",
-      inactivegray = "#7c6f64",
-    }
+    local function lsp_names()
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
 
-    local my_lualine_theme = {
+      if #clients == 0 then
+        return "No LSP"
+      end
 
-      normal = {
-        a = { bg = colors.gray, fg = colors.black, gui = "bold" },
-        b = { bg = colors.lightgray, fg = colors.white },
-        c = { bg = colors.darkgray, fg = colors.gray },
-      },
-      insert = {
-        a = { bg = colors.blue, fg = colors.black, gui = "bold" },
-        b = { bg = colors.lightgray, fg = colors.white },
-        c = { bg = colors.lightgray, fg = colors.white },
-      },
-      visual = {
-        a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
-        b = { bg = colors.lightgray, fg = colors.white },
-        c = { bg = colors.inactivegray, fg = colors.black },
-      },
-      replace = {
-        a = { bg = colors.red, fg = colors.black, gui = "bold" },
-        b = { bg = colors.lightgray, fg = colors.white },
-        c = { bg = colors.black, fg = colors.white },
-      },
-      command = {
-        a = { bg = colors.green, fg = colors.black, gui = "bold" },
-        b = { bg = colors.lightgray, fg = colors.white },
-        c = { bg = colors.inactivegray, fg = colors.black },
-      },
-      inactive = {
-        a = { bg = colors.darkgray, fg = colors.gray, gui = "bold" },
-        b = { bg = colors.darkgray, fg = colors.gray },
-        c = { bg = colors.darkgray, fg = colors.gray },
-      },
-    }
+      local names = {}
 
-    -- configure lualine with modified theme
+      for _, client in ipairs(clients) do
+        table.insert(names, client.name)
+      end
+
+      return table.concat(names, " ")
+    end
+
     lualine.setup({
       options = {
-        theme = my_lualine_theme,
+        theme = "kanagawa",
+        globalstatus = true,
+
+        component_separators = {
+          left = "│",
+          right = "│",
+        },
+
+        section_separators = {
+          left = "",
+          right = "",
+        },
+
+        disabled_filetypes = {
+          statusline = {
+            "alpha",
+            "dashboard",
+            "lazy",
+          },
+        },
       },
+
       sections = {
+        lualine_a = {
+          {
+            "mode",
+            icon = "",
+          },
+        },
+        lualine_b = {
+          "branch",
+          "diff",
+        },
+        lualine_c = {
+          {
+            "filename",
+            path = 1,
+          },
+        },
         lualine_x = {
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
+            color = {
+              fg = "#ff9e64",
+            },
           },
-          { "encoding" },
-          { "fileformat" },
-          { "filetype" },
+          {
+            "diagnostics",
+            sources = { "nvim_diagnostic" },
+          },
+          {
+            lsp_names,
+            icon = "",
+          },
+          "encoding",
+          "fileformat",
+          "filetype",
+        },
+        lualine_y = {
+          "progress",
+        },
+        lualine_z = {
+          "location",
         },
       },
     })

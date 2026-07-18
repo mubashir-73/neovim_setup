@@ -1,6 +1,7 @@
 return {
   servers = {
     "lua_ls",
+    "tsgo",
     "ts_ls",
     "html",
     "cssls",
@@ -26,6 +27,7 @@ return {
   ensure_installed = {
     --Servers
     "lua-language-server",
+    "tsgo",
     "ts_ls",
     "html",
     "cssls",
